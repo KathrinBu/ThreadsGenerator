@@ -23,16 +23,26 @@ public class HelloController {
     @FXML
     TableView tableView;
 
-    ObservableList<String> messages = FXCollections.observableArrayList();
-    ObservableList<String> messages2 = javafx.collections.FXCollections.synchronizedObservableList(messages);
+    ObservableList<ObservableMessage> messages = FXCollections.observableArrayList();
+    ObservableList<ObservableMessage> messages2 = javafx.collections.FXCollections.synchronizedObservableList(messages);
     BlockingQueue<String> mesQueue = new LinkedBlockingQueue<>();
 
     public void initialize(){
-        Generator generator1=new Generator("Vas",300);
-        Generator generator2=new Generator("Mas",400);
 
-        button1.setOnAction(actionEvent -> generator1.start());
-        button2.setOnAction(actionEvent -> generator2.start());
+        button1.setOnAction(actionEvent -> {
+            try {
+                Generator.work("VVV",messages);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        button2.setOnAction(actionEvent -> {
+            try {
+                Generator.work("SSS",messages);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         messages2.addListener((ListChangeListener<String>) change -> {
             while(change.next())
