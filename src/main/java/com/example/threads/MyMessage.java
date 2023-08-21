@@ -29,8 +29,8 @@ public class MyMessage {
         this.time = time;
     }
 
-    public MyMessage(String threadName, String message, long time) {
-        this.sender = threadName;
+    public MyMessage(String sender, String message, long time) {
+        this.sender = sender;
         this.message = message;
         this.time = time;
     }

@@ -9,7 +9,7 @@ public class Generator extends Thread{
     String name;
     ObservableList<MyMessage> message;
 
-    int k;
+    long k;
 
     public Generator(String name, ObservableList<MyMessage> message, int time) {
         this.name = name;
