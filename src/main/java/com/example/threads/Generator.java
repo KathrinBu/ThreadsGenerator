@@ -30,8 +30,8 @@ public class Generator extends Thread{
     public static void work(String sender, ObservableList<MyMessage>messages) {
         Random random=new Random();
         try{
-            for (int i = 0; i < 15; i++) {
-                String message="Message "+i;
+            for (int i = 0; i < 10; i++) {
+                String message="Message "+i+" from "+sender;
                 long time= System.currentTimeMillis();
                 MyMessage observableMessage=new MyMessage(sender,message,time);
                 messages.add(observableMessage);

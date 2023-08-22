@@ -23,38 +23,26 @@ public class HelloController {
 
     ObservableList<MyMessage> messages = FXCollections.observableArrayList();
     ObservableList<MyMessage> messages2 = javafx.collections.FXCollections.synchronizedObservableList(messages);
-//    BlockingQueue<String> mesQueue = new LinkedBlockingQueue<>();
 
     public void initialize(){
 
         button1.setOnAction(actionEvent -> {
-            //Generator.work("VVV",messages);
-            Generator gena = new Generator("VVV",messages2, 1);
-            gena.start();
+            Generator gena1 = new Generator("VVV",messages2, 16);
+            gena1.start();
         });
         button2.setOnAction(actionEvent -> {
 
-                Generator.work("SSS",messages);
+            Generator gena2 = new Generator("Fu",messages2, 10);
+            gena2.start();
 
         });
-
-//        messages2.addListener(new ListChangeListener<MyMessage>() {
-//                                  @Override
-//                                  public void onChanged(Change<? extends MyMessage> change) {
-//                                      while (change.next())
-//                                          if (change.wasAdded())
-//                                              for (MyMessage mes : change.getAddedSubList()) {
-//                                                  mesQueue.add(mes.getMessage());
-//                                              }
-//                                  }
-//                              });
 
     initTable();
 
     }
     private void initTable() {
         tableView.setItems(messages2);
-        TableColumn<MyMessage, String> col1 = new TableColumn<>("сообщение");
+        TableColumn<MyMessage, String> col1 = new TableColumn<>("message");
         col1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MyMessage, String>, ObservableValue<String>>() {
                                      @Override
                                      public ObservableValue<String> call(TableColumn.CellDataFeatures<MyMessage, String> myMessageStringCellDataFeatures) {
@@ -62,7 +50,7 @@ public class HelloController {
                                      }
                                  });
                 tableView.getColumns().add(col1);
-        TableColumn<MyMessage, String> col2 = new TableColumn<>("asfwer");
+        TableColumn<MyMessage, String> col2 = new TableColumn<>("time");
         col2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MyMessage, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<MyMessage, String> myMessageStringCellDataFeatures) {
@@ -71,6 +59,14 @@ public class HelloController {
     }
     );
         tableView.getColumns().add(col2);
+        TableColumn<MyMessage,String> col3=new TableColumn<>("sender");
+        col3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MyMessage, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<MyMessage, String> myMessageStringCellDataFeatures) {
+                return new SimpleStringProperty(myMessageStringCellDataFeatures.getValue().getSender());
+            }
+        });
+        tableView.getColumns().add(col3);
 
     }
     }
