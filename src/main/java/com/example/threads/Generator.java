@@ -21,17 +21,23 @@ public class Generator extends Thread{
         this.name = name;
         this.k = time;
     }
-    public static void work(String sender, ObservableList<ObservableMessage>messages) throws InterruptedException {
+
+    @Override
+    public void run() {
+        work(name, message);
+    }
+
+    public static void work(String sender, ObservableList<MyMessage>messages) {
         Random random=new Random();
         try{
-        for (int i = 0; i < 15; i++) {
-        String message="Message "+i;
-        long time= System.currentTimeMillis();
-        ObservableMessage observableMessage=new ObservableMessage(sender,message,time);
-        messages.add(observableMessage);
-        int interval=random.nextInt(400)+100;
-        Thread.sleep(interval);}
-
+            for (int i = 0; i < 15; i++) {
+                String message="Message "+i;
+                long time= System.currentTimeMillis();
+                MyMessage observableMessage=new MyMessage(sender,message,time);
+                messages.add(observableMessage);
+                int interval=random.nextInt(400)+100;
+                Thread.sleep(interval);
+            }
         } catch (InterruptedException e){
             throw new RuntimeException(e);
         }
